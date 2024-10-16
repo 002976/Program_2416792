@@ -6,7 +6,6 @@ int main(int argc, char *argv[]) {
 	char ch;
 	
 	printf("Input a string: ");		//receive string information
-	scanf("%c",&ch);
 	
 	while( (ch=getchar()) != '\n')	//divide string into individual character
 	{
