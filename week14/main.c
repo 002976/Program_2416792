@@ -119,14 +119,20 @@ void checkDie(void)
 // ----- EX. 5 : shark ------------
 
 // ----- EX. 6 : game end ------------
-int getAlivePlayer(void)
+int getAlivePlayer(void) //made changes to count those that are not dead
 {
    int i;
    int cnt=0;
    for(i=0; i< N_PLAYER; i++)
    {
-   		if(player_status[i] == PLAYERSTATUS_END);
-   		cnt++;
+   		if(player_status[i] == PLAYERSTATUS_END)
+   		{
+   			cnt++;
+		   }
+   		if (player_status[i] == PLAYERSTATUS_LIVE)
+   		{
+   			cnt++;
+		   }
    }
    
    return cnt;
