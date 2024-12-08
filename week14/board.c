@@ -71,7 +71,20 @@ int board_initBoard(void)
 // ----- EX. 5 : shark ------------
 int board_stepShark(void)
 {
+	int move = rand() % MAX_SHARKSTEP+1;
+	shark_position += move;
 	
+	//set NOK locations
+	if (shark_position > -1)
+	{
+		int i;
+		for (i=0; i < shark_position; i++)
+		{
+			board_status[i] = BOARDSTATUS_NOK;
+		}
+	}
+	
+	return shark_position;
 }
 // ----- EX. 5 : shark ------------
 

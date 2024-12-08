@@ -123,9 +123,9 @@ int getAlivePlayer(void)
 {
    int i;
    int cnt=0;
-   for(i=0; i<N_PLAYER; i++)
+   for(i=0; i< N_PLAYER; i++)
    {
-   		if(player_status[i] != PLAYERSTATUS_DIE); //count live or end players
+   		if(player_status[i] == PLAYERSTATUS_END);
    		cnt++;
    }
    
@@ -138,16 +138,16 @@ int getWinner(void)
     int winner = 0;
     int max_coin = -1;
     
-    for (i=0; i<N_PLAYER; i++)
+    for (i=0; i<N_PLAYER; i++) //go through all of the players
     {
-    	if (player_coin[i] > max_coin)
+    	if (player_coin[i] > max_coin)	//if a player has more coin than the current highest
     	{
     		max_coin = player_coin[i];
-    		winner = i;
+    		winner = i;					//it's turn will be remembered as the one with the most coins
 		}
 	}
 	
-	return winner;
+	return winner;						//print the winner's turn
 }
 // ----- EX. 6 : game end ------------
 
@@ -186,7 +186,7 @@ int main(int argc, const char * argv[]) {
         int dum;
 
 // ----- EX. 4 : player ------------
-        if (player_status[turn] != PLAYERSTATUS_LIVE)
+        if (player_status[turn] != PLAYERSTATUS_LIVE)		//if player dead, move on to the next player
         {
             turn = (turn + 1)%N_PLAYER;
             continue;
@@ -211,29 +211,38 @@ int main(int argc, const char * argv[]) {
         dieResult = rolldie();
         
         //step 2-3. moving
-        player_position[turn] += dieResult;
+        player_position[turn] += dieResult;			//find how much the player will go
         if (player_position [turn] >= N_BOARD)
         {
-        	printf("%s reached to the end!\n", player_name[turn], player_coin[turn]);
+        	printf("%s reached to the end!\n", player_name[turn], player_coin[turn]);	//when player reached the end
         	player_status[turn] = PLAYERSTATUS_END;
         	break;
 		}
 		else
 		{
-			printf("Die result : %i. %s moved to %i\n", dieResult, player_name[turn], player_position[turn]);
+			printf("Die result : %i. %s moved to %i\n", dieResult, player_name[turn], player_position[turn]);	//when player hasn't reached the end
 		}
    
         //step 2-4. coin
-        coinResult = board_getBoardCoin(player_position[turn]);
-        if (coinResult != 0)
+        coinResult = board_getBoardCoin(player_position[turn]);	//at the new location the player landed, how much coins are there?
+        if (coinResult != 0)		//if the player landed at a place with coins
         {
-        	player_coin[turn] += coinResult;
+        	player_coin[turn] += coinResult;	//the player earns the coin
 			printf("LUCKY %s got %i coin(s). (total of %i coin(s)\n", player_name[turn], coinResult, player_coin[turn]);
 		}
     
-        
+               
         //step 2-5. end process
-        turn = (turn + 1)%N_PLAYER;
+        turn = (turn + 1)%N_PLAYER;		//set turn for the next one in line
+        
+        //move shark after everyone had their turn
+        if (turn == 0)
+        {
+        	int shark_pos = board_stepShark();
+        	printf("Shark moved to %i\n", shark_pos);
+        	checkDie();
+		}
+        
     
 // ----- EX. 6 : game end ------------
     } while(game_end() == 0);
