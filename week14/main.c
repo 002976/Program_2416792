@@ -121,12 +121,33 @@ void checkDie(void)
 // ----- EX. 6 : game end ------------
 int getAlivePlayer(void)
 {
+   int i;
+   int cnt=0;
+   for(i=0; i<N_PLAYER; i++)
+   {
+   		if(player_status[i] != PLAYERSTATUS_DIE); //count live or end players
+   		cnt++;
+   }
    
+   return cnt;
 }
 
 int getWinner(void)
 {
+    int i;
+    int winner = 0;
+    int max_coin = -1;
     
+    for (i=0; i<N_PLAYER; i++)
+    {
+    	if (player_coin[i] > max_coin)
+    	{
+    		max_coin = player_coin[i];
+    		winner = i;
+		}
+	}
+	
+	return winner;
 }
 // ----- EX. 6 : game end ------------
 
@@ -195,6 +216,8 @@ int main(int argc, const char * argv[]) {
         {
         	printf("%s reached to the end! (coin : %i )\n", player_name[turn], player_coin[turn]);
         	player_status[turn] = PLAYERSTATUS_END;
+        	printPlayerStatus();
+        	break;
 		}
 		else
 		{
@@ -225,3 +248,4 @@ int main(int argc, const char * argv[]) {
 
     return 0;
 }
+

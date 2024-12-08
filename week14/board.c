@@ -71,7 +71,7 @@ int board_initBoard(void)
 // ----- EX. 5 : shark ------------
 int board_stepShark(void)
 {
-
+	
 }
 // ----- EX. 5 : shark ------------
 
