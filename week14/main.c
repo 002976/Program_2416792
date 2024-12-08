@@ -175,9 +175,6 @@ int main(int argc, const char * argv[]) {
         //step 2-1. status printing
 // ----- EX. 3 : board ------------
         board_printBoardStatus();
-        dieResult = rolldie();
-        player_position[i] += dieResult;
-        coinResult = board_getBoardCoin(player_position[i]);
 // ----- EX. 3 : board ------------
 // ----- EX. 4 : player ------------
         printPlayerStatus();
@@ -194,22 +191,20 @@ int main(int argc, const char * argv[]) {
         
         //step 2-3. moving
         player_position[turn] += dieResult;
-        if(player_position[turn] >= N_BOARD)
-        break;
-        printPlayerStatus();
+        if (player_position [turn] >= N_BOARD)
+        {
+        	printf("%s reached to the end! (coin : %i )\n", player_name[turn], player_coin[turn]);
+        	player_status[turn] = PLAYERSTATUS_END;
+		}
+		else
+		{
+			printf("Die result : %i. %s moved to %i\n\n", dieResult, player_name[turn], player_position[turn]);
+		}
    
         //step 2-4. coin
-        coinResult = board_getBoardCoin(player_position[turn]);
-        if (coinResult > 0)
-        printf("Lucky! %s got %i coins\n", player_name[turn], coinResult);
-        player_coin[turn] += coinResult;
-        
-        
+    
         
         //step 2-5. end process
-        if(player_position[turn] >= N_BOARD)
-        player_status[turn] = PLAYERSTATUS_END;
-        
         turn = (turn + 1)%N_PLAYER;
     
 // ----- EX. 6 : game end ------------
