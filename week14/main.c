@@ -214,9 +214,8 @@ int main(int argc, const char * argv[]) {
         player_position[turn] += dieResult;
         if (player_position [turn] >= N_BOARD)
         {
-        	printf("%s reached to the end! (coin : %i )\n", player_name[turn], player_coin[turn]);
+        	printf("%s reached to the end!\n", player_name[turn], player_coin[turn]);
         	player_status[turn] = PLAYERSTATUS_END;
-        	printPlayerStatus();
         	break;
 		}
 		else
@@ -229,7 +228,7 @@ int main(int argc, const char * argv[]) {
         if (coinResult != 0)
         {
         	player_coin[turn] += coinResult;
-			printf("LUCKY %s got %i coin(s). (total of %i coin(s))\n", player_name[turn], coinResult, player_coin[turn]);
+			printf("LUCKY %s got %i coin(s). (total of %i coin(s)\n", player_name[turn], coinResult, player_coin[turn]);
 		}
     
         
