@@ -198,10 +198,16 @@ int main(int argc, const char * argv[]) {
 		}
 		else
 		{
-			printf("Die result : %i. %s moved to %i\n\n", dieResult, player_name[turn], player_position[turn]);
+			printf("Die result : %i. %s moved to %i\n", dieResult, player_name[turn], player_position[turn]);
 		}
    
         //step 2-4. coin
+        coinResult = board_getBoardCoin(player_position[turn]);
+        if (coinResult != 0)
+        {
+        	player_coin[turn] += coinResult;
+			printf("LUCKY %s got %i coin(s). (total of %i coin(s))\n", player_name[turn], coinResult, player_coin[turn]);
+		}
     
         
         //step 2-5. end process

@@ -54,7 +54,13 @@ int board_initBoard(void)
     shark_position = SHARK_INITPOS;
 // ----- EX. 5 : shark ------------
 
-    //coin allocation
+    //coin allocation; allocating one coin at a time 
+    for(i=0 ; i < N_COINPOS; i++)
+    {
+    	int pos = rand()% N_BOARD;
+    	if(board_coin[pos] < MAX_COIN)
+    	board_coin[pos] += 1;
+	}
    
     
     return N_COINPOS;
